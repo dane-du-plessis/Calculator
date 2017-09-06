@@ -19,12 +19,19 @@ class Calculator extends JFrame {
 	JButton b8 = new JButton("8");
 	JButton b9 = new JButton("9");
 	JButton b0 = new JButton("0");
+	
 	JButton bTimes = new JButton("*");
 	JButton bDivide = new JButton("/");
 	JButton bAdd = new JButton("+");
 	JButton bSubtract = new JButton("-");
 	JButton bPoint = new JButton(".");
 	JButton bEquals = new JButton("=");
+	
+	JButton bCE       = new JButton("CE");
+	JButton bC        = new JButton("C");
+	JButton bDelete   = new JButton("Del");
+	JButton bNegative = new JButton("\u00B1");
+	JButton bPercent  = new JButton("%");
 	
 	private static final int CONSTANT_VALUE = 5;
 	
@@ -49,7 +56,6 @@ class Calculator extends JFrame {
 		// 2. The buttons to add
 		b1.setBackground(Color.ORANGE);
 		b2.setBackground(Color.ORANGE);
-		
 		b3.setBackground(Color.ORANGE);
 		b4.setBackground(Color.ORANGE);
 		b5.setBackground(Color.ORANGE);
@@ -59,38 +65,64 @@ class Calculator extends JFrame {
 		b9.setBackground(Color.ORANGE);
 		b0.setBackground(Color.ORANGE);
 		
-		b1.setSize(30, 35);
-		b2.setSize(30, 35);
-		b3.setSize(30, 35);
-		b4.setSize(30, 35);
-		b5.setSize(30, 35);
-		b6.setSize(30, 35);
-		b7.setSize(30, 35);
-		b8.setSize(30, 35);
-		b9.setSize(30, 35);
-		b0.setSize(30, 35);
-		
+		JPanel row0 = new JPanel();
 		JPanel row1 = new JPanel();
 		JPanel row2 = new JPanel();
 		JPanel row3 = new JPanel();
 		JPanel row4 = new JPanel();
 		JPanel row5 = new JPanel();
-
+		row1.setBackground(Color.white);
+		row2.setBackground(Color.white);
+		row3.setBackground(Color.white);
+		row4.setBackground(Color.white);
+		row5.setBackground(Color.white);
 		
-		// add display to row1
+		
+		int gridy = 0;
+		
+		// add display to row0
 		gbc.weightx = 1.0;
 		gbc.weighty = 1.0;
 		gbc.gridx = 0;
 		gbc.gridy = 0;
-		row1.setLayout(new GridBagLayout());
-		row1.add(_dataTF, gbc);
-		int gridy = 0;
+		row0.setLayout(new GridLayout(1,1));
+		row0.add(_dataTF, gbc);
+		//addComponent(content,row1,0,gridy++,1,1,1D,1D,GridBagConstraints.CENTER,GridBagConstraints.BOTH);
+		addComponent(content,row0,0,gridy++,1,1,1D,1D,GridBagConstraints.CENTER,GridBagConstraints.BOTH);
+		
+		// add display to row1
+		gbc.weightx = 1.0;
+		gbc.weighty = 1.0;
+		row1.setLayout(new GridLayout(1,5));
+		
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		row1.add(bC, gbc);
+		
+		gbc.gridx = 1;
+		gbc.gridy = 0;
+		row1.add(bCE, gbc);
+		
+		gbc.gridx = 2;
+		gbc.gridy = 0;
+		row1.add(bDelete, gbc);
+		
+		gbc.gridx = 3;
+		gbc.gridy = 0;
+		row1.add(bNegative, gbc);
+		
+		gbc.gridx = 4;
+		gbc.gridy = 0;
+		row1.add(bPercent, gbc);
+		
 		addComponent(content,row1,0,gridy++,1,1,1D,1D,GridBagConstraints.CENTER,GridBagConstraints.BOTH);
+		
+		
 		
 		// add buttons to row2
 		gbc.gridx = 0;
 		gbc.gridy = 0;
-		row2.setLayout(new GridBagLayout());
+		row2.setLayout(new GridLayout(1,4));
 		row2.add(b7, gbc);
 		
 		gbc.gridx = 1;
@@ -112,7 +144,7 @@ class Calculator extends JFrame {
 		// add buttons to row3
 		gbc.gridx = 0;
 		gbc.gridy = 0;
-		row3.setLayout(new GridBagLayout());
+		row3.setLayout(new GridLayout(1,4));
 		row3.add(b4, gbc);
 		
 		gbc.gridx = 1;
@@ -134,7 +166,7 @@ class Calculator extends JFrame {
 		// add buttons to row4
 		gbc.gridx = 0;
 		gbc.gridy = 0;
-		row4.setLayout(new GridBagLayout());
+		row4.setLayout(new GridLayout(1,4));
 		row4.add(b1, gbc);
 		
 		gbc.gridx = 1;
@@ -157,7 +189,7 @@ class Calculator extends JFrame {
 		// add buttons to row5
 		gbc.gridx = 0;
 		gbc.gridy = 0;
-		row5.setLayout(new GridBagLayout());
+		row5.setLayout(new GridLayout(1,4));
 		row5.add(b0, gbc);
 		
 		gbc.gridx = 1;
