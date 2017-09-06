@@ -1,0 +1,5 @@
+This is a basic calculator that uses postfix notation to do calculations, allowing me to use a stack rather than a tree to implement the calculations.
+
+Basic functionality. Supported operations include: * / + - %
+
+For more on postfix notation see www.wikipedia.org/wiki/Reverse_Polish_notation
