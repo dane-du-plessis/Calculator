@@ -358,6 +358,10 @@ class Calculator extends JFrame {
 		}
 	}
 	
+	private void appendNumberSymbol(String s) {
+		
+	}
+	
 	public static void main(String[] args) {
 		Calculator w = new Calculator();
 		w.setVisible(true);
