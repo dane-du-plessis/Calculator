@@ -82,8 +82,38 @@ class Calculator extends JFrame {
 		b9.setBackground(Color.ORANGE);
 		b0.setBackground(Color.ORANGE);
 		bPoint.setBackground(Color.ORANGE);
+		bNegative.setBackground(Color.ORANGE);
 		
 		bEquals.setBackground(Color.CYAN);
+		
+		b1.setFont(new Font("Monospaced", Font.BOLD, 40));
+		b2.setFont(new Font("Monospaced", Font.BOLD, 40));
+		b3.setFont(new Font("Monospaced", Font.BOLD, 40));
+		b4.setFont(new Font("Monospaced", Font.BOLD, 40));
+		b5.setFont(new Font("Monospaced", Font.BOLD, 40));
+		b6.setFont(new Font("Monospaced", Font.BOLD, 40));
+		b7.setFont(new Font("Monospaced", Font.BOLD, 40));
+		b8.setFont(new Font("Monospaced", Font.BOLD, 40));
+		b9.setFont(new Font("Monospaced", Font.BOLD, 40));
+		b0.setFont(new Font("Monospaced", Font.BOLD, 40));
+		bPoint.setFont(new Font("Monospaced", Font.BOLD, 40));
+		
+		bTimes.setFont(new Font("Monospaced", Font.BOLD, 40));
+		bDivide.setFont(new Font("Monospaced", Font.BOLD, 40));
+		bAdd.setFont(new Font("Monospaced", Font.BOLD, 40));
+		bSubtract.setFont(new Font("Monospaced", Font.BOLD, 40));
+		bPoint.setFont(new Font("Monospaced", Font.BOLD, 40));
+		bEquals.setFont(new Font("Monospaced", Font.BOLD, 40));
+		
+		bCE.setFont(new Font("Monospaced", Font.BOLD, 40));
+		bC.setFont(new Font("Monospaced", Font.BOLD, 40));
+		bDelete.setFont(new Font("Monospaced", Font.BOLD, 40));
+		bNegative.setFont(new Font("Monospaced", Font.BOLD, 40));
+		bPercent.setFont(new Font("Monospaced", Font.BOLD, 40));
+		
+		
+		
+		
 		
 		JPanel row0 = new JPanel();
 		JPanel row1 = new JPanel();
@@ -129,7 +159,8 @@ class Calculator extends JFrame {
 		
 		gbc.gridx = 3;
 		gbc.gridy = 0;
-		row1.add(bNegative, gbc);
+		//row1.add(bNegative, gbc);
+		row1.add(bSubtract, gbc);
 		
 		gbc.gridx = 4;
 		gbc.gridy = 0;
@@ -218,7 +249,8 @@ class Calculator extends JFrame {
 		
 		gbc.gridx = 2;
 		gbc.gridy = 0;
-		row5.add(bSubtract, gbc);
+		//row5.add(bSubtract, gbc);
+		row5.add(bNegative, gbc);
 		
 		gbc.gridx = 3;
 		gbc.gridy = 0;
@@ -299,6 +331,7 @@ class Calculator extends JFrame {
 			case "9":
 			case "0":
 			case ".":
+			case "\u00B1":
 				System.out.println(b.getText());
 				appendNumberSymbol(b.getText());
 				break;
@@ -310,9 +343,6 @@ class Calculator extends JFrame {
 				System.out.println(b.getText());
 				break;
 			case "Del":
-				System.out.println(b.getText());
-				break;
-			case "\u00B1":
 				System.out.println(b.getText());
 				break;
 			case "%":
@@ -344,7 +374,27 @@ class Calculator extends JFrame {
 	
 	private void appendNumberSymbol(String s) {
 		//TODO Check to see that s is in fact a number...
-		op += s;
+		String tryOp = op;
+		if(s.equals("\u00B1")) {
+			// change sign
+			try {
+				tryOp = Double.toString(-Double.parseDouble(tryOp));
+			}
+			catch (NumberFormatException e) {
+				System.out.println("Something's wrong with the number");
+			}
+		}
+		else {
+			// append a digit
+			tryOp += s;	
+			try {
+				Double.toString(Double.parseDouble(tryOp));
+			}
+			catch (NumberFormatException e) {
+				System.out.println("Something's wrong with the number");
+			}
+		}
+		
 		System.out.println("op = " + op);
 	}
 	
