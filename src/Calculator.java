@@ -25,7 +25,7 @@ class Calculator extends JFrame {
 	JButton bAdd = new JButton("+");
 	JButton bSubtract = new JButton("-");
 	JButton bPoint = new JButton(".");
-	JButton bEquals = new JButton("=");
+	JButton bEquals = new JButton("Enter");
 	
 	JButton bCE       = new JButton("CE");
 	JButton bC        = new JButton("C");
@@ -38,6 +38,14 @@ class Calculator extends JFrame {
 	private static final Insets insets = new Insets(2, 2, 2, 2);
 	
 	public Calculator() {
+		buildGUI();
+		
+		// set up variables
+		
+		// listen for events
+	}
+
+	private void buildGUI() {
 		// 0. Button layout objects
 		GridBagLayout gridLayout = new GridBagLayout();
 		GridBagConstraints gbc = new GridBagConstraints();
@@ -64,6 +72,8 @@ class Calculator extends JFrame {
 		b8.setBackground(Color.ORANGE);
 		b9.setBackground(Color.ORANGE);
 		b0.setBackground(Color.ORANGE);
+		
+		bEquals.setBackground(Color.CYAN);
 		
 		JPanel row0 = new JPanel();
 		JPanel row1 = new JPanel();
@@ -198,11 +208,11 @@ class Calculator extends JFrame {
 		
 		gbc.gridx = 2;
 		gbc.gridy = 0;
-		row5.add(bEquals, gbc);
+		row5.add(bSubtract, gbc);
 		
 		gbc.gridx = 3;
 		gbc.gridy = 0;
-		row5.add(bSubtract, gbc);
+		row5.add(bEquals, gbc);
 		
 		gbc.gridx = 0;
 		gbc.gridy = 3;
@@ -221,6 +231,7 @@ class Calculator extends JFrame {
 		//setMinimumSize(new Dimension(300,400));
 		Image image = new ImageIcon("icons/calculatorImage2.png").getImage();
 		setIconImage(image);
+		_dataTF.grabFocus();
 	}
 	
 	private void addComponent(Container container, Component component, 
