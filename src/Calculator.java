@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.util.Stack;
 import java.awt.event.*;
 
 import javax.swing.*;
@@ -33,7 +34,8 @@ class Calculator extends JFrame {
 	private JButton bNegative 	= new JButton("\u00B1");
 	private JButton bPercent  	= new JButton("%");
 	
-	private static final int CONSTANT_VALUE = 5;
+	private Stack<String> opStack = new Stack<String>();
+	private String op = "";
 	
 	private static final Insets insets = new Insets(2, 2, 2, 2);
 	
@@ -79,6 +81,7 @@ class Calculator extends JFrame {
 		b8.setBackground(Color.ORANGE);
 		b9.setBackground(Color.ORANGE);
 		b0.setBackground(Color.ORANGE);
+		bPoint.setBackground(Color.ORANGE);
 		
 		bEquals.setBackground(Color.CYAN);
 		
@@ -286,34 +289,18 @@ class Calculator extends JFrame {
 			JButton b = (JButton)e.getSource();
 			switch (b.getText()) {
 			case "1":
-				System.out.println(b.getText());
-				break;
 			case "2":
-				System.out.println(b.getText());
-				break;
 			case "3":
-				System.out.println(b.getText());
-				break;
 			case "4":
-				System.out.println(b.getText());
-				break;
 			case "5":
-				System.out.println(b.getText());
-				break;
 			case "6":
-				System.out.println(b.getText());
-				break;
 			case "7":
-				System.out.println(b.getText());
-				break;
 			case "8":
-				System.out.println(b.getText());
-				break;
 			case "9":
-				System.out.println(b.getText());
-				break;
 			case "0":
+			case ".":
 				System.out.println(b.getText());
+				appendNumberSymbol(b.getText());
 				break;
 				
 			case "C":
@@ -343,9 +330,6 @@ class Calculator extends JFrame {
 			case "Enter":
 				System.out.println(b.getText());
 				break;
-			case ".":
-				System.out.println(b.getText());
-				break;
 			case "-":
 				System.out.println(b.getText());
 				break;
@@ -359,7 +343,9 @@ class Calculator extends JFrame {
 	}
 	
 	private void appendNumberSymbol(String s) {
-		
+		//TODO Check to see that s is in fact a number...
+		op += s;
+		System.out.println("op = " + op);
 	}
 	
 	public static void main(String[] args) {
