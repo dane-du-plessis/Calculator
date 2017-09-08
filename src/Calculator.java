@@ -9,40 +9,47 @@ class Calculator extends JFrame {
 	// data fields
 	private JTextField _dataTF = new JTextField(10);
 	// buttons - consider using an array
-	JButton b1 = new JButton("1");
-	JButton b2 = new JButton("2");
-	JButton b3 = new JButton("3");
-	JButton b4 = new JButton("4");
-	JButton b5 = new JButton("5");
-	JButton b6 = new JButton("6");
-	JButton b7 = new JButton("7");
-	JButton b8 = new JButton("8");
-	JButton b9 = new JButton("9");
-	JButton b0 = new JButton("0");
+	private JButton b1 = new JButton("1");
+	private JButton b2 = new JButton("2");
+	private JButton b3 = new JButton("3");
+	private JButton b4 = new JButton("4");
+	private JButton b5 = new JButton("5");
+	private JButton b6 = new JButton("6");
+	private JButton b7 = new JButton("7");
+	private JButton b8 = new JButton("8");
+	private JButton b9 = new JButton("9");
+	private JButton b0 = new JButton("0");
 	
-	JButton bTimes = new JButton("*");
-	JButton bDivide = new JButton("/");
-	JButton bAdd = new JButton("+");
-	JButton bSubtract = new JButton("-");
-	JButton bPoint = new JButton(".");
-	JButton bEquals = new JButton("Enter");
+	private JButton bTimes 		= new JButton("*");
+	private JButton bDivide 	= new JButton("/");
+	private JButton bAdd 		= new JButton("+");
+	private JButton bSubtract 	= new JButton("-");
+	private JButton bPoint 		= new JButton(".");
+	private JButton bEquals 	= new JButton("Enter");
 	
-	JButton bCE       = new JButton("CE");
-	JButton bC        = new JButton("C");
-	JButton bDelete   = new JButton("Del");
-	JButton bNegative = new JButton("\u00B1");
-	JButton bPercent  = new JButton("%");
+	private JButton bCE       	= new JButton("CE");
+	private JButton bC       	= new JButton("C");
+	private JButton bDelete   	= new JButton("Del");
+	private JButton bNegative 	= new JButton("\u00B1");
+	private JButton bPercent  	= new JButton("%");
 	
 	private static final int CONSTANT_VALUE = 5;
 	
 	private static final Insets insets = new Insets(2, 2, 2, 2);
 	
 	public Calculator() {
+		/* Build the GUI */
 		buildGUI();
+		addButtonListeners();
 		
-		// set up variables
+		/* Set up variables */
+		//Stack for operations
 		
-		// listen for events
+		
+		/* Listen for events */
+		//assign listeners to each button.
+		//test by writing button presses to std.out
+		//System.out.println("this is a string");
 	}
 
 	private void buildGUI() {
@@ -228,10 +235,37 @@ class Calculator extends JFrame {
 		setVisible(true);
 		add(content);
 		pack();
-		//setMinimumSize(new Dimension(300,400));
+		setMinimumSize(new Dimension(400,500));
 		Image image = new ImageIcon("icons/calculatorImage2.png").getImage();
 		setIconImage(image);
 		_dataTF.grabFocus();
+	}
+	
+	private void addButtonListeners() {
+		b1.addActionListener(new CalculationBtnListener());
+		b2.addActionListener(new CalculationBtnListener());
+		b3.addActionListener(new CalculationBtnListener());
+		b4.addActionListener(new CalculationBtnListener());
+		b5.addActionListener(new CalculationBtnListener());
+		b6.addActionListener(new CalculationBtnListener());
+		b7.addActionListener(new CalculationBtnListener());
+		b8.addActionListener(new CalculationBtnListener());
+		b9.addActionListener(new CalculationBtnListener());
+		b0.addActionListener(new CalculationBtnListener());
+		
+		bTimes.addActionListener(new CalculationBtnListener());
+		bDivide.addActionListener(new CalculationBtnListener());
+		bAdd.addActionListener(new CalculationBtnListener());
+		bSubtract.addActionListener(new CalculationBtnListener());
+		bPoint.addActionListener(new CalculationBtnListener());
+		bEquals.addActionListener(new CalculationBtnListener());
+		
+		bCE.addActionListener(new CalculationBtnListener());
+		bC.addActionListener(new CalculationBtnListener());
+		bDelete.addActionListener(new CalculationBtnListener());
+		bNegative.addActionListener(new CalculationBtnListener());
+		bPercent.addActionListener(new CalculationBtnListener());
+		
 	}
 	
 	private void addComponent(Container container, Component component, 
@@ -245,14 +279,88 @@ class Calculator extends JFrame {
 	
 	class CalculationBtnListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			String dataStr = _dataTF.getText();
+			System.out.println("Button hit");
+			//String dataStr = _dataTF.getText();
 			// int res = Integer.parseInt(dataStr)*CONSTANT_VALUE;
 			//_resTF.setText("" + res);
+			JButton b = (JButton)e.getSource();
+			switch (b.getText()) {
+			case "1":
+				System.out.println(b.getText());
+				break;
+			case "2":
+				System.out.println(b.getText());
+				break;
+			case "3":
+				System.out.println(b.getText());
+				break;
+			case "4":
+				System.out.println(b.getText());
+				break;
+			case "5":
+				System.out.println(b.getText());
+				break;
+			case "6":
+				System.out.println(b.getText());
+				break;
+			case "7":
+				System.out.println(b.getText());
+				break;
+			case "8":
+				System.out.println(b.getText());
+				break;
+			case "9":
+				System.out.println(b.getText());
+				break;
+			case "0":
+				System.out.println(b.getText());
+				break;
+				
+			case "C":
+				System.out.println(b.getText());
+				break;
+			case "CE":
+				System.out.println(b.getText());
+				break;
+			case "Del":
+				System.out.println(b.getText());
+				break;
+			case "\u00B1":
+				System.out.println(b.getText());
+				break;
+			case "%":
+				System.out.println(b.getText());
+				break;
+			case "*":
+				System.out.println(b.getText());
+				break;
+			case "/":
+				System.out.println(b.getText());
+				break;
+			case "+":
+				System.out.println(b.getText());
+				break;
+			case "Enter":
+				System.out.println(b.getText());
+				break;
+			case ".":
+				System.out.println(b.getText());
+				break;
+			case "-":
+				System.out.println(b.getText());
+				break;
+				
+			default:
+				System.out.println("other");
+				break;
+			}
+			
 		}
 	}
 	
 	public static void main(String[] args) {
 		Calculator w = new Calculator();
 		w.setVisible(true);
+		System.out.println("this is the output of the system.");
 	}
 }
