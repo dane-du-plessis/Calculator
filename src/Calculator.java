@@ -44,6 +44,8 @@ class Calculator extends JFrame {
 		buildGUI();
 		addButtonListeners();
 		
+		// b1.doClick();
+		
 		/* Set up variables */
 		//Stack for operations
 		
@@ -314,7 +316,7 @@ class Calculator extends JFrame {
 	
 	class CalculationBtnListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			System.out.println("Button hit");
+			//System.out.println("Button hit");
 			//String dataStr = _dataTF.getText();
 			// int res = Integer.parseInt(dataStr)*CONSTANT_VALUE;
 			//_resTF.setText("" + res);
@@ -397,7 +399,14 @@ class Calculator extends JFrame {
 		
 		System.out.println("op = " + op);
 	}
+
+	public String getOp() {
+		return op;
+	}
 	
+	public Stack<String> getOpStack() {
+		return opStack;
+	}
 	public static void main(String[] args) {
 		Calculator w = new Calculator();
 		w.setVisible(true);
