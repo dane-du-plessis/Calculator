@@ -335,7 +335,7 @@ class Calculator extends JFrame {
 			case ".":
 			case "\u00B1":
 				System.out.println(b.getText());
-				appendNumberSymbol(b.getText());
+				buildNumber(b.getText());
 				break;
 				
 			case "C":
@@ -374,32 +374,78 @@ class Calculator extends JFrame {
 		}
 	}
 	
-	private void appendNumberSymbol(String s) {
+	/*
+	 * buidNumber ensures that the <op> string always contains a valid number:
+	 * 1.34
+	 * -12
+	 * 3.14
+	 * 
+	 *  Never values such as
+	 *  12.32.4
+	 *  12-21.3
+	 *  12-
+	 *  
+	 *  Assumes:  That <s> is a valid floating point number.
+	 *  Input:    A digit or period in string <s>: 1 2 3 4 5 6 7 8 9 . "\u00B1"
+	 *  Output:   A string <s> representing a valid floating point number.
+	 */
+	private void buildNumber(String s) {
 		//TODO Check to see that s is in fact a number...
 		String tryOp = op;
-		if(s.equals("\u00B1")) {
-			// change sign
-			try {
-				tryOp = Double.toString(-Double.parseDouble(tryOp));
-			}
-			catch (NumberFormatException e) {
-				System.out.println("Something's wrong with the number");
-			}
-		}
-		else {
-			// append a digit
-			tryOp += s;	
-			try {
-				Double.toString(Double.parseDouble(tryOp));
-			}
-			catch (NumberFormatException e) {
-				System.out.println("Something's wrong with the number");
-			}
-		}
+		char[] opCA = op.toCharArray();
+		char nextSymbol = s.toCharArray()[0];
 		
+		if (s.equals("\u00B1")) {
+			// change sign value in the string.
+			op = Double.toString(-Double.parseDouble(tryOp));
+		}
+		else if (isDigitOrPoint(nextSymbol)) {
+			if (nextSymbol == '.') {
+				// is there already a decimal point in the <op> string?
+				boolean pointPresent = false;
+				for (int i=0; i < opCA.length; i++) {
+					if (opCA[i] == '.') {
+						pointPresent = true;
+					}
+				}
+				// add the point if not present in <op>
+				if (!pointPresent)
+					op = Double.toString(Double.parseDouble(op + '.' + '0'));
+				// otherwise do nothing to <op>
+			}
+			else {
+				// just append the nextSymbol
+				op = op + nextSymbol;
+			}
+		}
+
 		System.out.println("op = " + op);
 	}
+	
+	private boolean isDigitOrPoint(char a) {
+		boolean r;
+		switch (a) {
+		case '1':
+		case '2':
+		case '3':
+		case '4':
+		case '5':
+		case '6':
+		case '7':
+		case '8':
+		case '9':
+		case '0':
+		case '\u00B1':
+			r = true;
+			break;
 
+		default:
+			r = false;
+			break;
+		}
+		return r;
+	}
+	
 	public String getOp() {
 		return op;
 	}
@@ -410,6 +456,6 @@ class Calculator extends JFrame {
 	public static void main(String[] args) {
 		Calculator w = new Calculator();
 		w.setVisible(true);
-		System.out.println("this is the output of the system.");
+		//System.out.println("this is the output of the system.");
 	}
 }
