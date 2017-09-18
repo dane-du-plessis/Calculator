@@ -353,8 +353,9 @@ class Calculator extends JFrame {
 					System.out.println(b.getText());
 					hitLastX();
 					break;
-				case "Del": // delete
+				case "Del": // delete everything in the display - leaves stack and lastX unchanged.
 					System.out.println(b.getText());
+					delCommand();
 					break;
 	
 				case "CHS": // negation operator
@@ -438,7 +439,11 @@ class Calculator extends JFrame {
 			op = "";
 			System.out.println(opStack);
 		}
-		
+	}
+	
+	private void delCommand() {
+		op = "";
+		_dataTF.setText("display cleared");
 	}
 	
 	// Operators
