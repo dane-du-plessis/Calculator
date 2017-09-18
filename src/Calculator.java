@@ -29,15 +29,15 @@ class Calculator extends JFrame {
 	private JButton bPoint 		= new JButton(".");
 	private JButton bEquals 	= new JButton("Enter");
 	
-	private JButton bCE       	= new JButton("CE");
-	private JButton bC       	= new JButton("C");
+	private JButton bCE       	= new JButton("LST X");
+	private JButton bC       	= new JButton("ON");
 	private JButton bDelete   	= new JButton("Del");
-	private JButton bNegative 	= new JButton("\u00B1");
+	private JButton bNegative 	= new JButton("CHS");
 	//private JButton bPercent  	= new JButton("%");
 	
 	private Stack<Double> opStack = new Stack<Double>(); // the stack of operands
 	private String op = ""; // the next operand
-	
+	private double lastX = 0;
 	private static final Insets insets = new Insets(2, 2, 2, 2);
 	
 	public Calculator() {
@@ -346,17 +346,18 @@ class Calculator extends JFrame {
 					buildNumber(b.getText());
 					break;
 					
-				case "C": // clear stack, clear op
+				case "ON": // clear stack, clear op
 					System.out.println(b.getText());
 					break;
-				case "CE": // pop stack
+				case "LST X": // The LAST X register preserves the value that was last in <code>op</code> BEFORE execution of a numeric operation.
 					System.out.println(b.getText());
+					hitLastX();
 					break;
 				case "Del": // delete
 					System.out.println(b.getText());
 					break;
 	
-				case "\u00B1": // negation operator
+				case "CHS": // negation operator
 					System.out.println(b.getText());
 					applyNegationOperator();
 					break;
@@ -389,6 +390,21 @@ class Calculator extends JFrame {
 			}
 			
 		}
+	}
+	
+	
+	/*
+	 * Resets all variables to initial state.
+	 */
+	private void powerButton() {
+		 opStack = new Stack<Double>();
+		 op = "";
+		 _dataTF.setText("");
+	}
+	
+	private void hitLastX() {
+		opStack.push(lastX);
+		_dataTF.setText(Double.toString(lastX));
 	}
 	
 	/*
@@ -432,6 +448,7 @@ class Calculator extends JFrame {
 		Double v;
 		try {
 			v = opStack.pop();
+			lastX = v;
 			v = -v;
 			opStack.push(v);
 			_dataTF.setText(Double.toString(v));
@@ -447,6 +464,7 @@ class Calculator extends JFrame {
 		double a, b, v;
 		try {
 			a = opStack.pop();
+			lastX = a;
 			b = opStack.pop();
 			v = a*b;
 			opStack.push(v);
@@ -465,6 +483,7 @@ class Calculator extends JFrame {
 		double a, b, v;
 		try {
 			a = opStack.pop();
+			lastX = a;
 			b = opStack.pop();
 			if (a == 0) throw new IllegalArgumentException();
 			v = b/a;
@@ -487,9 +506,11 @@ class Calculator extends JFrame {
 		double a, b, v;
 		try {
 			a = opStack.pop();
+			lastX = a;
 			b = opStack.pop();
 			v = a+b;
 			opStack.push(v);
+			lastX = v;
 			System.out.println(Double.toString(v));
 			_dataTF.setText(Double.toString(v));
 		}
@@ -506,9 +527,11 @@ class Calculator extends JFrame {
 		double a, b, v;
 		try {
 			a = opStack.pop();
+			lastX = a;
 			b = opStack.pop();
 			v = b-a;
 			opStack.push(v);
+			lastX = v;
 			System.out.println(Double.toString(v));
 			_dataTF.setText(Double.toString(v));
 		}
