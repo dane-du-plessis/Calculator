@@ -370,8 +370,12 @@ class Calculator extends JFrame {
 					applyDivisionOperator();
 					break;
 				case "+":
+					System.out.println(b.getText());
+					applyAdditionOperator();
+					break;
 				case "-":
 					System.out.println(b.getText());
+					applySubtractionOperator();
 					break;
 					
 				case "Enter":
@@ -462,8 +466,8 @@ class Calculator extends JFrame {
 		try {
 			a = opStack.pop();
 			b = opStack.pop();
-			if (b == 0) throw new IllegalArgumentException();
-			v = a/b;
+			if (a == 0) throw new IllegalArgumentException();
+			v = b/a;
 			opStack.push(v);
 			System.out.println(Double.toString(v));
 			_dataTF.setText(Double.toString(v));
@@ -475,6 +479,43 @@ class Calculator extends JFrame {
 		}
 		catch (IllegalArgumentException e) {
 			System.out.println("Div by 0 error");
+		}
+	}
+	
+	private void applyAdditionOperator() {
+		enterCommand();
+		double a, b, v;
+		try {
+			a = opStack.pop();
+			b = opStack.pop();
+			v = a+b;
+			opStack.push(v);
+			System.out.println(Double.toString(v));
+			_dataTF.setText(Double.toString(v));
+		}
+		catch (java.util.EmptyStackException e) {
+			System.out.println("Stack underflow. ");
+			_dataTF.setText("Stack underflow. ");
+			System.out.println(opStack);
+		}
+	}
+	
+	
+	private void applySubtractionOperator() {
+		enterCommand();
+		double a, b, v;
+		try {
+			a = opStack.pop();
+			b = opStack.pop();
+			v = b-a;
+			opStack.push(v);
+			System.out.println(Double.toString(v));
+			_dataTF.setText(Double.toString(v));
+		}
+		catch (java.util.EmptyStackException e) {
+			System.out.println("Stack underflow. ");
+			_dataTF.setText("Stack underflow. ");
+			System.out.println(opStack);
 		}
 	}
 	
