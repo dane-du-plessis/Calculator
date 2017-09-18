@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.util.EmptyStackException;
 import java.util.Stack;
 import java.awt.event.*;
 
@@ -34,8 +35,8 @@ class Calculator extends JFrame {
 	private JButton bNegative 	= new JButton("\u00B1");
 	//private JButton bPercent  	= new JButton("%");
 	
-	private Stack<Double> opStack = new Stack<Double>();
-	private String op = "";
+	private Stack<Double> opStack = new Stack<Double>(); // the stack of operands
+	private String op = ""; // the next operand
 	
 	private static final Insets insets = new Insets(2, 2, 2, 2);
 	
@@ -107,6 +108,7 @@ class Calculator extends JFrame {
 		bPoint.setFont(new Font("Monospaced", Font.BOLD, 40));
 		bEquals.setFont(new Font("Monospaced", Font.BOLD, 40));
 		
+		_dataTF.setFont(new Font("Monospaced", Font.BOLD, 25));
 		
 		bTimes.setBackground(Color.WHITE);
 		bDivide.setBackground(Color.WHITE);
@@ -355,16 +357,26 @@ class Calculator extends JFrame {
 					break;
 	
 				case "\u00B1": // negation operator
+					System.out.println(b.getText());
+					applyNegationOperator();
+					break;
+					
 				case "*":
+					System.out.println(b.getText());
+					applyMultiplicationOperator();
+					break;
 				case "/":
+					System.out.println(b.getText());
+					applyDivisionOperator();
+					break;
 				case "+":
 				case "-":
 					System.out.println(b.getText());
 					break;
 					
 				case "Enter":
-					enterCommand();
 					System.out.println(b.getText());
+					enterCommand();
 					break;
 					
 				default:
@@ -376,23 +388,25 @@ class Calculator extends JFrame {
 	}
 	
 	/*
-	 * This function blindly adds characters to the input string.
+	 * This function blindly adds characters to the input string and does no checking.
 	 */
 	private void buildNumber(String s) {
 		op = op + s;
 		System.out.println("op = " + op);
+		_dataTF.setText(op);
 	}
 	
 	/*
 	 * This command is really important.
-	 * 1. Parse the <op> string to extract double.
-	 * 2. If legitimate, push this value to the <opStack>
+	 * 1. Parse <code>op</code> string to extract double.
+	 * 2. If legitimate, push this value to the <code>opStack</code>
 	 * 3. Else, state that there was an error with the input and don't push anything.
 	 */
 	private void enterCommand() {
-		// Test to see that the op is in fact a legitimate number
+		// Test to see that<code>op</code>is in fact a legitimate number
 		Double x;
 		try {
+			System.out.println("op = " + op);
 			x = Double.parseDouble(op);
 			opStack.push(x);
 			System.out.println(opStack);
@@ -400,12 +414,69 @@ class Calculator extends JFrame {
 		}
 		catch (NumberFormatException e) {
 			System.out.println("Sytax error:" + op);
+			_dataTF.setText("Sytax error: " + op);
+			op = "";
 			System.out.println(opStack);
 		}
 		
 	}
 	
+	// Operators
+	private void applyNegationOperator() {
+		if (opStack.isEmpty()) enterCommand();
+		// now apply negation operator to top item in opStack.
+		Double v;
+		try {
+			v = opStack.pop();
+			v = -v;
+			opStack.push(v);
+			_dataTF.setText(Double.toString(v));
+			System.out.println(opStack);
+		}
+		catch (java.util.EmptyStackException e) {
+			// do nothing in this case.
+		}
+	}
 	
+	private void applyMultiplicationOperator() {
+		enterCommand();
+		double a, b, v;
+		try {
+			a = opStack.pop();
+			b = opStack.pop();
+			v = a*b;
+			opStack.push(v);
+			System.out.println(Double.toString(v));
+			_dataTF.setText(Double.toString(v));
+		}
+		catch (java.util.EmptyStackException e) {
+			System.out.println("Stack underflow. ");
+			_dataTF.setText("Stack underflow. ");
+			System.out.println(opStack);
+		}
+	}
+	
+	private void applyDivisionOperator() {
+		enterCommand();
+		double a, b, v;
+		try {
+			a = opStack.pop();
+			b = opStack.pop();
+			if (b == 0) throw new IllegalArgumentException();
+			v = a/b;
+			opStack.push(v);
+			System.out.println(Double.toString(v));
+			_dataTF.setText(Double.toString(v));
+		}
+		catch (java.util.EmptyStackException e) {
+			System.out.println("Stack underflow. ");
+			_dataTF.setText("Stack underflow. ");
+			System.out.println(opStack);
+		}
+		catch (IllegalArgumentException e) {
+			System.out.println("Div by 0 error");
+		}
+	}
 	
 	public Stack<Double> getOpStack() {
 		return opStack;
